@@ -36,12 +36,16 @@ class newsData extends Command
      * @return mixed
      */
     public function handle()
-    {  
-        $data = ['www.trio.com','charles-barkley-tells-jussie-smolletts-there-are-repercussions-to-actions-we-all-lost-in-this-scenario','static.foxnews.com/foxnews.com/content/uploads/2019/03/Barkley-Smollett-Getty-AP.jpg','Charles Barkley shocked fans in late February when he piled onto allegations that Jussie Smollett faked a hate crime in Chicago','John Doe','Charles Barkley tells Jussie Smollett there are repercussions to actions','2019-03-28T15:17:46Z'];
-        $dataCount = count($data);
-        for ($i = 0; $i < $dataCount; $i ++){
-           News::Create($data);
-           echo 'Added successfully';
-        };
+    { 
+       News::Create([
+               'url' => 'www.trio.com',
+               'urlToImage'=>'www.trio.com/image',
+               'content' => 'charles barkley',
+               'author' => 'john Doe',
+               'source' => 'bbc',
+               'title'=> 'Charles Barkley shocked fans',
+               'publishedAt' => '2019-03-28T15:17:46Z'
+        ]);
+        echo 'Added successfully';
     }
 }

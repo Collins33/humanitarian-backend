@@ -14,7 +14,7 @@ class News extends Model
     protected $fillable =[
         'url',
         'urlToImage',
-        'contents',
+        'content',
         'author',
         'source',
         'title',
