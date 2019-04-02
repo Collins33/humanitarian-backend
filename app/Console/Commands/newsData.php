@@ -41,17 +41,25 @@ class newsData extends Command
     { 
        $client = new Client();
        // make api call to news api
-       $result = $client->get('https://newsapi.org/v2/everything?q=kenya&apiKey=f6dce1d67d0a4e94a03a795bb892c499');
-       echo $result->getBody();
-    //    News::Create([
-    //            'url' => 'www.trio.com',
-    //            'urlToImage'=>'www.trio.com/image',
-    //            'content' => 'charles barkley',
-    //            'author' => 'john Doe',
-    //            'source' => 'bbc',
-    //            'title'=> 'Charles Barkley shocked fans',
-    //            'publishedAt' => '2019-03-28T15:17:46Z'
-    //     ]);
-        echo 'Added successfully';
+       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=kenya&apiKey=f6dce1d67d0a4e94a03a795bb892c499');
+       $data = $result->getBody();
+       $obj_data = json_decode($data);
+       $data_array = $obj_data->articles;
+       foreach($data_array as $item)
+       {
+        //var_dump($item->author);
+        News::Create([
+               'url' => $item->url,
+               'urlToImage'=>$item->urlToImage,
+               'content' => $item->content,
+               'author' => $item->author,
+               'source' => $item->author,
+               'title'=> $item->title,
+               'publishedAt' =>  $item->publishedAt
+        ]);
+        echo 'Completed';
+
     }
+    }
+
 }
