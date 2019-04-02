@@ -39,15 +39,15 @@ class newsData extends Command
      */
     public function handle()
     { 
+       $api_key = env("NEWS_API_KEY");
        $client = new Client();
        // make api call to news api
-       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=kenya&apiKey=f6dce1d67d0a4e94a03a795bb892c499');
+       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=kenya&apiKey='.$api_key);
        $data = $result->getBody();
        $obj_data = json_decode($data);
        $data_array = $obj_data->articles;
        foreach($data_array as $item)
        {
-        //var_dump($item->author);
         News::Create([
                'url' => $item->url,
                'urlToImage'=>$item->urlToImage,
@@ -58,7 +58,6 @@ class newsData extends Command
                'publishedAt' =>  $item->publishedAt
         ]);
         echo 'Completed';
-
     }
     }
 
