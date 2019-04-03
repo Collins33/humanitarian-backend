@@ -22,5 +22,5 @@ Route::group(['prefix'=>'v1'], function(){
     // Route::get('news', ['as'=>'news', function(){
     //     return App\News::all();
     // }]);
-    Route::resource('news', 'NewsController', ['only'=>['index']]);
+    Route::resource('news', 'NewsController', ['only'=>['index', 'show']]);
 });
