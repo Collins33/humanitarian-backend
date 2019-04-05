@@ -24,3 +24,18 @@ Route::group(['prefix'=>'v1'], function(){
     // }]);
     Route::resource('news', 'NewsController', ['only'=>['index', 'show']]);
 });
+
+// authentication routes
+Route::group(['prefix'=>'v1/auth',
+'middleware'=>'api'
+], 
+function()
+{
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout');
+Route::post('refresh', 'AuthController@refresh');
+Route::post('me', 'AuthController@me');
+});
+
+

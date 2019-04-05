@@ -42,7 +42,7 @@ class newsData extends Command
        $api_key = env("NEWS_API_KEY");
        $client = new Client();
        // make api call to news api
-       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=kenya&apiKey='.$api_key);
+       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=us&apiKey='.$api_key);
        $data = $result->getBody();
        $obj_data = json_decode($data);
        $data_array = $obj_data->articles;
