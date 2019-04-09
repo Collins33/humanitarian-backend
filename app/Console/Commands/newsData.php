@@ -39,27 +39,35 @@ class newsData extends Command
      */
     public function handle()
     { 
-       $this->info("News fetching has started");
-       $api_key = env("NEWS_API_KEY");
-       $client = new Client();
-       // make api call to news api
-       $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=us&apiKey='.$api_key);
-       $data = $result->getBody();
-       $obj_data = json_decode($data);
-       $data_array = $obj_data->articles;
-       foreach($data_array as $item)
+       try 
        {
-        News::Create([
-               'url' => $item->url,
-               'urlToImage'=>$item->urlToImage,
-               'content' => $item->content,
-               'author' => $item->author,
-               'source' => $item->author,
-               'title'=> $item->title,
-               'publishedAt' =>  $item->publishedAt
-        ]);
-    }
-    $this->info("News fetching has completed");
+            $this->info("News fetching has started");
+            $api_key = env("NEWS_API_KEY");
+            $client = new Client();
+            // make api call to news api
+            $result = $client->request('GET', 'https://newsapi.org/v2/everything?q=us&apiKey='.$api_key);
+            $data = $result->getBody();
+            $obj_data = json_decode($data);
+            $data_array = $obj_data->articles;
+            foreach($data_array as $item)
+            {
+            News::Create([
+                    'url' => $item->url,
+                    'urlToImage'=>$item->urlToImage,
+                    'content' => $item->content,
+                    'author' => $item->author,
+                    'source' => $item->author,
+                    'title'=> $item->title,
+                    'publishedAt' =>  $item->publishedAt
+            ]);
+            }
+            $this->info("News fetching has completed");
+       }
+       catch(Exception $e)
+       {
+            $this->error("An error occured");
+       }
+      
     }
 
 }
