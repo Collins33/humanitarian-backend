@@ -39,6 +39,7 @@ class newsData extends Command
      */
     public function handle()
     { 
+       $this->info("News fetching has started");
        $api_key = env("NEWS_API_KEY");
        $client = new Client();
        // make api call to news api
@@ -57,8 +58,8 @@ class newsData extends Command
                'title'=> $item->title,
                'publishedAt' =>  $item->publishedAt
         ]);
-        echo 'Completed';
     }
+    $this->info("News fetching has completed");
     }
 
 }
