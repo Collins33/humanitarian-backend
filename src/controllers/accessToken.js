@@ -15,7 +15,7 @@ exports.get_access_token = async (req, res, next) => {
     const auth =
       "Basic " +
       new Buffer(consumerKey + ":" + consumerSecret).toString("base64");
-    const tokenResponse = await request(
+    await request(
       {
         url: url,
         headers: {
