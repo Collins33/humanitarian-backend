@@ -6,6 +6,8 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// routes registration
+const tokenRoute = require("./src/routes/accessToken");
 /**
  * Give access control
  * to any client
@@ -22,6 +24,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use("/api/v1/token", tokenRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({

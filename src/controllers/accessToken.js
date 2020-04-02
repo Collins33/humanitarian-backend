@@ -11,22 +11,34 @@ const url = process.env.URL;
  * @returns json message
  */
 exports.get_access_token = async (req, res, next) => {
-  const auth =
-    "Basic " +
-    new Buffer(consumer_key + ":" + consumer_secret).toString("base64");
-  request(
-    {
-      url: url,
-      headers: {
-        Authorization: auth
+  try {
+    const auth =
+      "Basic " +
+      new Buffer(consumerKey + ":" + consumerSecret).toString("base64");
+    const tokenResponse = await request(
+      {
+        url: url,
+        headers: {
+          Authorization: auth
+        }
+      },
+      function(error, response, body) {
+        if (error) {
+          res.status(500).json({
+            message: "There was an error when generating the token"
+          });
+        } else {
+          const bodyResponse = JSON.parse(body);
+          res.status(200).json({
+            message: "Token was generated",
+            token: bodyResponse.access_token
+          });
+        }
       }
-    },
-    function(error, response, body) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(body);
-      }
-    }
-  );
+    );
+  } catch (error) {
+    res.status(500).json({
+      message: "There was an error"
+    });
+  }
 };
