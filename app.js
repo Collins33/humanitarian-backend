@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/v1/token", tokenRoute);
+app.use("/api/v1", tokenRoute);
 
 app.get("/", (req, res) => {
   res.status(200).json({
