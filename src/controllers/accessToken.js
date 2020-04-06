@@ -26,7 +26,7 @@ exports.get_access_token = async (req, res, next) => {
 exports.register_payment_urls = async (req, res, next) => {
   const token = req.authToken;
   const bearerToken = "Bearer " + token;
-  request(
+  await request(
     {
       url: REGISTER_URL,
       method: "POST",
@@ -36,8 +36,8 @@ exports.register_payment_urls = async (req, res, next) => {
       json: {
         ShortCode: SHORT_CODE,
         ResponseType: "Complete",
-        ConfirmationURL: "http://41.80.97.164:801/confirmation",
-        ValidationURL: "http://41.80.97.164:801/validation_url"
+        ConfirmationURL: "http://41.80.97.164:4000/confirmation",
+        ValidationURL: "http://41.80.97.164:4000/validation_url"
       }
     },
     function(error, response, body) {
@@ -52,4 +52,24 @@ exports.register_payment_urls = async (req, res, next) => {
       }
     }
   );
+};
+
+/**
+ * @method confirmation
+ * @summary - save the payment confirmation
+ * @param request body, response body
+ * @returns json message
+ */
+exports.payment_confirmation = (req, res, next) => {
+  console.log(req.body, "<><><><><><><>>CONFIRMATION<<><><><>");
+};
+
+/**
+ * @method validation
+ * @summary - save the payment confirmation
+ * @param request body, response body
+ * @returns json message
+ */
+exports.payment_validation = (req, res, next) => {
+  console.log(req.body, "<><><><><><><>>VALIDATION<<><><><>");
 };

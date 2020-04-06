@@ -16,4 +16,7 @@ router.get(
   accessTokenController.register_payment_urls
 );
 
+router.post("/confirmation");
+router.post("/validation_url");
+
 module.exports = router;
