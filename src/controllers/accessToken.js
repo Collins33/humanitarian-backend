@@ -46,7 +46,9 @@ exports.register_payment_urls = async (req, res, next) => {
           message: "There was an error when generating the token"
         });
       } else {
-        console.log(body);
+        res.status(200).json({
+          message: "Successfully added the url"
+        });
       }
     }
   );
