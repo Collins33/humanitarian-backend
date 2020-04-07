@@ -37,8 +37,8 @@ exports.register_payment_urls = async (req, res, next) => {
       json: {
         ShortCode: SHORT_CODE,
         ResponseType: "Complete",
-        ConfirmationURL: "http://41.80.97.164:801/confirmation",
-        ValidationURL: "http://41.80.97.164:801/validation_url"
+        ConfirmationURL: "http://41.80.97.164:8000/confirmation",
+        ValidationURL: "http://41.80.97.164:8000/validation_url"
       }
     },
     function(error, response, body) {
