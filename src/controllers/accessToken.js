@@ -4,6 +4,8 @@ const REGISTER_URL = process.env.REGISTER_URL;
 const SIMULATION_URL = process.env.SIMULATION_URL;
 const SHORT_CODE = process.env.SHORT_CODE;
 const MSISDN = process.env.MSISDN;
+const CONFIRMATION_URL = process.env.CONFIRMATION_URL;
+const VALIDATION_URL = process.env.VALIDATION_URL;
 /**
  * @method get_access_token
  * @summary - generate the access token
@@ -37,8 +39,8 @@ exports.register_payment_urls = async (req, res, next) => {
       json: {
         ShortCode: SHORT_CODE,
         ResponseType: "Complete",
-        ConfirmationURL: "http://41.80.97.164:8000/confirmation",
-        ValidationURL: "http://41.80.97.164:8000/validation_url"
+        ConfirmationURL: CONFIRMATION_URL,
+        ValidationURL: VALIDATION_URL
       }
     },
     function(error, response, body) {
@@ -47,6 +49,7 @@ exports.register_payment_urls = async (req, res, next) => {
           message: "There was an error when generating the token"
         });
       } else {
+        console.log(body);
         res.status(200).json({
           message: "Successfully added the url"
         });
@@ -102,11 +105,12 @@ exports.simulate = (req, res, next) => {
     },
     function(error, response, body) {
       if (error) {
+        console.log("ERROR!!!!@");
         res.status(500).json({
           message: "There was an error"
         });
       } else {
-        console.log(body);
+        console.log(body, "<><><><><><>>><><><><><><>><>");
       }
     }
   );
