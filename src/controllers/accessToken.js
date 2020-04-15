@@ -12,7 +12,7 @@ const VALIDATION_URL = process.env.VALIDATION_URL;
  * @param request body, response body
  * @returns json message
  */
-exports.get_access_token = async (req, res, next) => {
+exports.get_access_token = (req, res, next) => {
   const token = req.authToken;
   res.status(200).json({
     message: "Token was generated",
@@ -84,11 +84,12 @@ exports.payment_validation = (req, res, next) => {
  * @param request body, response body
  * @returns json message
  */
-exports.simulate = (req, res, next) => {
+exports.simulate = async (req, res, next) => {
   const token = req.authToken;
   const amount = req.body.amount;
   const auth = "Bearer " + token;
-  request(
+  console.log(amount)
+  await request(
     {
       method: "POST",
       url: SIMULATION_URL,
@@ -105,7 +106,6 @@ exports.simulate = (req, res, next) => {
     },
     function(error, response, body) {
       if (error) {
-        console.log("ERROR!!!!@");
         res.status(500).json({
           message: "There was an error"
         });
