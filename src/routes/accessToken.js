@@ -24,4 +24,10 @@ router.get(
 router.post("/confirmation", accessTokenController.payment_confirmation);
 router.post("/validation_url", accessTokenController.payment_validation);
 
+router.get(
+  "/stk",
+  accessTokenMiddleware.generate_auth_token,
+  accessTokenController.lipa_na_mpesa
+)
+
 module.exports = router;
