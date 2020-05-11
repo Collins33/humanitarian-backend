@@ -130,11 +130,11 @@ exports.simulate = async (req, res, next) => {
  * @param request body, response body
  * @returns json message
  */
-exports.lipa_na_mpesa = (req, res, next) => {
+exports.lipa_na_mpesa = async (req, res, next) => {
   const token = req.authToken;
   const amount = req.body.amount;
   const phoneNumber = req.body.phoneNumber
-  const response = lipa_na_mpesa_online(token, amount, phoneNumber);
+  const response = await lipa_na_mpesa_online(token, amount, phoneNumber);
   if (response === "There was an error"){
     res.status(500).json({
       message: "There was an error"
